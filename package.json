@@ -16,5 +16,9 @@
   "dependencies": {
     "node-lightify": ">=2.0.6"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lbohlmann/homebridge-lightify-tunablewhite-e14"
+  },
   "license": "MIT"
 }
