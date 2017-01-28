@@ -2,6 +2,7 @@
 Simple workaround to use Lightify's "Tunable White" lamps with homebridge.
 
 Sample config.json for homebridge:
+
     {
         "bridge": {
             "name": "Homebridge",
