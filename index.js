@@ -39,18 +39,18 @@ function LightifyAccessory(log, config) {
 }
 
 LightifyAccessory.prototype.getOn = function(callback) {
-    return this.connection.getStatus(this.mac).then(function(data){
+    return this.connection.getStatus(this.mac).then(data => {
         console.log("Requesting Status of " + this.name);
         console.log("Returning Value: " + data.status == 1);
         callback(null, data.status == 1);
-    }).catch(function(error){
+    }).catch(error => {
         console.log(error);
         callback(null, false);
     });
 }
 
 LightifyAccessory.prototype.getBrightness = function(callback) {
-    return this.connection.getStatus(this.mac).then(function(data){
+    return this.connection.getStatus(this.mac).then(data => {
         console.log("Requesting Brightness of " + this.name);
         console.log("Returning Value: " + data.brightness);
         callback(null, data.brightness);
@@ -61,13 +61,13 @@ LightifyAccessory.prototype.getBrightness = function(callback) {
 }
 
 LightifyAccessory.prototype.getHue = function(callback) {
-    return this.connection.getStatus(this.mac).then(function(data){
+    return this.connection.getStatus(this.mac).then(data => {
         console.log("Requesting Color Temperature of " + this.name);
         var ctemp;
-        if(hue <= 180){
-            ctemp = ((hue/180.0)*7000.0)+1000.0;
+        if(data.hue <= 180){
+            ctemp = ((data.hue/180.0)*7000.0)+1000.0;
         }else{
-            ctemp = (((180-(hue-180))/180.0)*7000.0)+1000.0;
+            ctemp = (((180-(data.hue-180))/180.0)*7000.0)+1000.0;
         }
         console.log("Returning Value: " + ctemp);
         callback(null, ctemp);
@@ -82,7 +82,7 @@ LightifyAccessory.prototype.getSaturation = function(callback) {
 }
 
 LightifyAccessory.prototype.setOn = function(on, callback) {
-    return this.connection.nodeOnOff(this.mac, on).then(function(data){
+    return this.connection.nodeOnOff(this.mac, on).then(data => {
         console.log("Turning on " + this.name);
         console.log("Success: " + data.result[0].success == 1);
         callback(null, data.success == 1);
@@ -93,7 +93,7 @@ LightifyAccessory.prototype.setOn = function(on, callback) {
 }
 
 LightifyAccessory.prototype.setBrightness = function(brightness, callback) {
-    return this.connection.nodeBrightness(this.mac, brightness, 0).then(function(data){
+    return this.connection.nodeBrightness(this.mac, brightness, 0).then(data => {
         console.log("Setting Brightness of " + this.name + " to " + brightness);
         console.log("Success: " + data.result[0].success == 1);
         callback(null, data.success == 1);
@@ -111,7 +111,7 @@ LightifyAccessory.prototype.setHue = function(hue, callback) {
     }else{
         ctemp = (((180-(hue-180))/180.0)*7000.0)+1000.0;
     }
-    return this.connection.nodeTemperature(this.mac, ctemp, 0).then(function(data){
+    return this.connection.nodeTemperature(this.mac, ctemp, 0).then(data => {
         console.log("Setting Color Temperature of " + this.name + " to " + ctemp);
         console.log("Success: " + data.result[0].success == 1);
         callback(null, data.success == 1);
